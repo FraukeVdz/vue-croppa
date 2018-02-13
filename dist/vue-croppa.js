@@ -866,11 +866,16 @@ var component = { render: function render() {
       var canvasWidth = this.canvas.style.width;
       canvasWidth = Number(canvasWidth.substr(0, canvasWidth.length - 2));
 
-      var height = this.naturalHeight / this.naturalWidth * canvasWidth;
-      var width = this.naturalWidth / this.naturalHeight * canvasHeight;
+      var x = 50;
+      var y = 50;
 
-      var y = Math.abs(this.imgData.startY / height * 100);
-      var x = Math.abs(this.imgData.startX / width * 100);
+      if (this.aspectRatio > this.outputWidth / this.outputHeight) {
+        var width = this.naturalWidth / this.naturalHeight * canvasHeight;
+        x = Math.abs(this.imgData.startX / width * 100);
+      } else {
+        var height = this.naturalHeight / this.naturalWidth * canvasWidth;
+        y = Math.abs(this.imgData.startY / height * 100);
+      }
 
       return {
         startX: startX,

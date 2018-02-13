@@ -438,14 +438,17 @@
         let canvasWidth = this.canvas.style.width
         canvasWidth = Number(canvasWidth.substr(0, canvasWidth.length - 2))
 
+        let x = 50
+        let y = 50
 
-        const height = this.naturalHeight / this.naturalWidth * canvasWidth
-        const width = this.naturalWidth / this.naturalHeight * canvasHeight
+        if(this.aspectRatio > this.outputWidth / this.outputHeight) {
+          const width = this.naturalWidth / this.naturalHeight * canvasHeight
+          x = Math.abs(this.imgData.startX / width * 100)
+        } else {
+          const height = this.naturalHeight / this.naturalWidth * canvasWidth
+          y = Math.abs(this.imgData.startY / height * 100)
+        }
 
-
-        const y = Math.abs(this.imgData.startY / height * 100)
-        const x = Math.abs(this.imgData.startX / width * 100)
-          
         return {
           startX,
           startY,
