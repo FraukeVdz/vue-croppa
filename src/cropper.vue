@@ -304,7 +304,7 @@
       },
 
       getChosenFile () {
-        const file = this.$refs.fileInput.files[0]
+        let file = this.$refs.fileInput.files[0]
         if(file.length <= 0)
           file = this.originalImage
         return this.$refs.fileInput.files[0]
@@ -787,7 +787,6 @@
           this.imgData.height = imgHeight / scaleRatio
           this.imgData.width = this.outputWidth
           this.imgData.startX = 0
-          // TODO: has to be middle of image
           if(this.moveDir === 'horizontal') {
             this.imgData.startY = -(this.imgData.height - this.outputHeight) / 2
           } else {
