@@ -873,11 +873,11 @@ var component = { render: function render() {
         var width = this.naturalWidth / this.naturalHeight * canvasHeight;
         var leftOver = width - canvasWidth;
 
-        x = Math.abs(this.imgData.startX / leftOver * 100);
+        x = Math.abs(this.imgData.startX / this.quality / leftOver * 100);
       } else {
         var height = this.naturalHeight / this.naturalWidth * canvasWidth;
         var _leftOver = height - canvasHeight;
-        y = Math.abs(this.imgData.startY / _leftOver * 100);
+        y = Math.abs(this.imgData.startY / this.quality / _leftOver * 100);
       }
 
       return {
