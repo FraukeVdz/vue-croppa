@@ -539,7 +539,12 @@ var component = { render: function render() {
       imageSet: false,
       currentPointerCoord: null,
       currentIsInitial: false,
-      loading: false
+      loading: false,
+      oldOutputHeight: 0,
+      oldOutputWidth: 0,
+      chosenX: 0,
+      chosenY: 0,
+      moveDir: null
     };
   },
 
@@ -605,14 +610,14 @@ var component = { render: function render() {
         deep: true
       });
     }
+
+    this.oldOutputHeight = this.outputHeight * this.quality;
+    this.oldOutputWidth = this.outputWidth * this.quality;
   },
 
 
   watch: {
     outputWidth: function outputWidth() {
-      this.onDimensionChange();
-    },
-    outputHeight: function outputHeight() {
       this.onDimensionChange();
     },
     canvasColor: function canvasColor() {
@@ -723,6 +728,8 @@ var component = { render: function render() {
       return this.ctx;
     },
     getChosenFile: function getChosenFile() {
+      var file = this.$refs.fileInput.files[0];
+      if (file.length <= 0) file = this.originalImage;
       return this.$refs.fileInput.files[0];
     },
     move: function move(offset) {
@@ -731,6 +738,8 @@ var component = { render: function render() {
       var oldY = this.imgData.startY;
       this.imgData.startX += offset.x;
       this.imgData.startY += offset.y;
+      this.chosenX += offset.x;
+      this.chosenY += offset.y;
       if (this.preventWhiteSpace) {
         this._preventMovingToWhiteSpace();
       }
@@ -1190,14 +1199,22 @@ var component = { render: function render() {
         scaleRatio = imgHeight / this.outputHeight;
         this.imgData.width = imgWidth / scaleRatio;
         this.imgData.height = this.outputHeight;
-        this.imgData.startX = -(this.imgData.width - this.outputWidth) / 2;
         this.imgData.startY = 0;
+        if (this.moveDir === 'vertical') {
+          this.imgData.startX = -(this.imgData.width - this.outputWidth) / 2;
+        } else {
+          this.imgData.startX = this.chosenX / this.oldOutputWidth * this.outputWidth;
+        }
       } else {
         scaleRatio = imgWidth / this.outputWidth;
         this.imgData.height = imgHeight / scaleRatio;
         this.imgData.width = this.outputWidth;
-        this.imgData.startY = -(this.imgData.height - this.outputHeight) / 2;
         this.imgData.startX = 0;
+        if (this.moveDir === 'horizontal') {
+          this.imgData.startY = -(this.imgData.height - this.outputHeight) / 2;
+        } else {
+          this.imgData.startY = this.chosenY / this.oldOutputHeight * this.outputHeight;
+        }
       }
     },
     _aspectFit: function _aspectFit() {
@@ -1283,6 +1300,14 @@ var component = { render: function render() {
       this.lastMovingCoord = null;
       this.pointerMoved = false;
       this.pointerStartCoord = null;
+
+      this.oldOutputWidth = this.outputWidth;
+      this.oldOutputHeight = this.outputHeight;
+      if (this.aspectRatio > this.outputWidth / this.outputHeight) {
+        this.moveDir = 'horizontal';
+      } else {
+        this.moveDir = 'vertical';
+      }
     },
     _handlePointerMove: function _handlePointerMove(evt) {
       if (this.passive) return;
