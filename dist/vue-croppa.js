@@ -871,12 +871,13 @@ var component = { render: function render() {
 
       if (this.aspectRatio > this.outputWidth / this.outputHeight) {
         var width = this.naturalWidth / this.naturalHeight * canvasHeight;
-        var leftOver = width + this.imgData.startX;
+        var leftOver = width - canvasWidth;
 
-        x = 100 - Math.abs(leftOver / width * 100);
+        x = 100 - Math.abs(leftOver / this.imgData.startX * 100);
       } else {
         var height = this.naturalHeight / this.naturalWidth * canvasWidth;
-        y = Math.abs(this.imgData.startY / height * 100);
+        var _leftOver = height - canvasHeight;
+        y = Math.abs(_leftOver / this.imgData.startY * 100);
       }
 
       return {
