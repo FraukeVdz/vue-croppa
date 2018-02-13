@@ -305,9 +305,9 @@
 
       getChosenFile () {
         let file = this.$refs.fileInput.files[0]
-        if(file.length <= 0)
+        if(typeof file === 'undefined' || file === null)
           file = this.originalImage
-        return this.$refs.fileInput.files[0]
+        return file
       },
 
       move (offset) {

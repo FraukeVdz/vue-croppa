@@ -729,8 +729,8 @@ var component = { render: function render() {
     },
     getChosenFile: function getChosenFile() {
       var file = this.$refs.fileInput.files[0];
-      if (file.length <= 0) file = this.originalImage;
-      return this.$refs.fileInput.files[0];
+      if (typeof file === 'undefined' || file === null) file = this.originalImage;
+      return file;
     },
     move: function move(offset) {
       if (!offset || this.passive) return;
