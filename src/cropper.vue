@@ -443,7 +443,9 @@
 
         if(this.aspectRatio > this.outputWidth / this.outputHeight) {
           const width = this.naturalWidth / this.naturalHeight * canvasHeight
-          x = Math.abs(this.imgData.startX / width * 100)
+          const leftOver = width + this.imgData.startX
+
+          x = 100 - Math.abs(leftOver / width * 100)
         } else {
           const height = this.naturalHeight / this.naturalWidth * canvasWidth
           y = Math.abs(this.imgData.startY / height * 100)
