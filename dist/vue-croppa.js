@@ -860,13 +860,21 @@ var component = { render: function render() {
           startY = _imgData.startY;
 
 
+      var canvasRatio = this.outputWidth / this.outputHeight;
+
+      if (this.aspectRatio > canvasRatio) {
+        // height 100%
+      } else {
+          // width: 100%
+        }
+
       return {
         startX: startX,
         startY: startY,
         scale: this.scaleRatio,
         orientation: this.orientation,
-        height: this.outputHeight,
-        width: this.outputWidth
+        height: this.naturalHeight,
+        width: this.naturalWidth
       };
     },
     supportDetection: function supportDetection() {
