@@ -71,6 +71,12 @@ export default new VueRouter({
           component: resolve => {
             require(['./pages/demos.vue'], resolve)
           }
+        },
+        {
+          path: 'responsive',
+          component: resolve => {
+            require(['./pages/responsive.vue'], resolve)
+          }
         }
       ]
     }

@@ -69,10 +69,6 @@ module.exports = {
       exclude: 'node_modules/**'
     }),
     min &&
-      uglify({
-        output: {
-          comments: /zhanziyang/
-        }
-      })
+     console.log('ja')
   ]
 }
