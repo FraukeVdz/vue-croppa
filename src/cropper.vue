@@ -436,7 +436,9 @@
           startX,
           startY,
           scale: this.scaleRatio,
-          orientation: this.orientation
+          orientation: this.orientation,
+          height: this.outputHeight,
+          width: this.outputWidth
         }
       },
 

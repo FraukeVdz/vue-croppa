@@ -864,7 +864,9 @@ var component = { render: function render() {
         startX: startX,
         startY: startY,
         scale: this.scaleRatio,
-        orientation: this.orientation
+        orientation: this.orientation,
+        height: this.outputHeight,
+        width: this.outputWidth
       };
     },
     supportDetection: function supportDetection() {
