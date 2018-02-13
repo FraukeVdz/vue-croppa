@@ -445,7 +445,7 @@
           const width = this.naturalWidth / this.naturalHeight * canvasHeight
           const leftOver = width - canvasWidth
 
-          x = 100 - Math.abs(this.imgData.startX  / leftOver * 100)
+          x = Math.abs(this.imgData.startX  / leftOver * 100)
         } else {
           const height = this.naturalHeight / this.naturalWidth * canvasWidth
           const leftOver = height - canvasHeight
