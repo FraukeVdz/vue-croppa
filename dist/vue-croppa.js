@@ -860,21 +860,25 @@ var component = { render: function render() {
           startY = _imgData.startY;
 
 
-      var canvasRatio = this.outputWidth / this.outputHeight;
+      var canvasHeight = this.canvas.style.height;
+      canvasHeight = Number(canvasHeight.substr(0, canvasHeight.length - 2));
 
-      if (this.aspectRatio > canvasRatio) {
-        // height 100%
-      } else {
-          // width: 100%
-        }
+      var canvasWidth = this.canvas.style.width;
+      canvasWidth = Number(canvasWidth.substr(0, canvasWidth.length - 2));
+
+      var height = this.naturalHeight / this.naturalWidth * canvasWidth;
+      var width = this.naturalWidth / this.naturalHeight * canvasHeight;
+
+      var y = Math.abs(this.imgData.startY / height * 100);
+      var x = Math.abs(this.imgData.startX / width * 100);
 
       return {
         startX: startX,
         startY: startY,
         scale: this.scaleRatio,
         orientation: this.orientation,
-        height: this.naturalHeight,
-        width: this.naturalWidth
+        x: x,
+        y: y
       };
     },
     supportDetection: function supportDetection() {

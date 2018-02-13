@@ -432,21 +432,27 @@
         if (!this.hasImage()) return {}
         let { startX, startY } = this.imgData
 
-        let canvasRatio = this.outputWidth / this.outputHeight
+        let canvasHeight = this.canvas.style.height
+        canvasHeight = Number(canvasHeight.substr(0, canvasHeight.length - 2))
 
-        if (this.aspectRatio > canvasRatio) {
-          // height 100%
-        } else {
-          // width: 100%
-        }
+        let canvasWidth = this.canvas.style.width
+        canvasWidth = Number(canvasWidth.substr(0, canvasWidth.length - 2))
+
+
+        const height = this.naturalHeight / this.naturalWidth * canvasWidth
+        const width = this.naturalWidth / this.naturalHeight * canvasHeight
+
+
+        const y = Math.abs(this.imgData.startY / height * 100)
+        const x = Math.abs(this.imgData.startX / width * 100)
           
         return {
           startX,
           startY,
           scale: this.scaleRatio,
           orientation: this.orientation,
-          height: this.naturalHeight,
-          width: this.naturalWidth
+          x: x,
+          y: y
         }
       },
 
